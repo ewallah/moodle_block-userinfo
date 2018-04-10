@@ -1,16 +1,19 @@
-.block .content .userinfoblock{
-    margin:auto;
+.block .content .userinfoblock {
+    margin: auto;
     text-align: center;
 }
-.block .content .userinfoblock img{
+
+.block .content .userinfoblock img {
     height: 100px;
     width: 100px;
     padding: 4px;
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
+    background: none repeat scroll 0 0 #FFF;
+    border: 1px solid #CCC;
 }
-.block .content .userinfoblock span{
-    background:url([[pix:block_userinfo|tape2]]) no-repeat scroll transparent;display: block;
+
+.block .content .userinfoblock span {
+    background: url([[pix:block_userinfo|tape2]]) no-repeat scroll transparent;
+    display: block;
     height: 22px;
     left: 50px;
     margin-left: 30%;
@@ -18,9 +21,9 @@
     margin-top: -10px;
     width: 100px;
     display: block;
-    /*position:absolute;*/
 }
-.lastaccess{
+
+.lastaccess {
     font-size: 10px;
     font-style: italic;
 }

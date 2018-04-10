@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,9 +22,9 @@
  * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2012030301;
+$plugin->version   = 2012030301;
 $plugin->component = 'block_userinfo';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = "2.2.x (20120303)"; // User-friendly version number
-
+$plugin->release   = '2.2.x (20120303)';

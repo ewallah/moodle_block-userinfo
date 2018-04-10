@@ -22,21 +22,40 @@
  * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Block userinfo class
+ *
+ * @package    block_userinfo
+ * @copyright  2011 Federico J. Botti - Entornos Educativos
+ * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_userinfo extends block_base {
 
-    function init() {
-        $this->title = get_string('pluginname','block_userinfo');
+    /**
+     * Initialise the block.
+     */
+    public function init() {
+        $this->title = get_string('pluginname', 'block_userinfo');
     }
 
-    function get_content() {
+    /**
+     * Return the content of this block.
+     *
+     * @return stdClass the content
+     */
+    public function get_content() {
         global $CFG, $OUTPUT, $USER, $DB;
-        
-        require_once($CFG->dirroot.'/message/lib.php');
-        
-        if ($this->content !== NULL) {
+
+        require_once($CFG->dirroot . '/message/lib.php');
+
+        if ($this->content !== null) {
             return $this->content;
         }
-        
+
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
@@ -79,14 +98,18 @@ class block_userinfo extends block_base {
             $txt = get_string('lastaccess') . ': ' . userdate($USER->lastlogin, get_string('strftimedatetime', 'core_langconfig'));
             $s .= html_writer::span($txt, 'lastaccess');
         }
-
         $this->content->text = $s;
         return $this->content;
     }
     
-    function salute(){
+    /**
+     * Return the salute.
+     *
+     * @return string
+     */
+    private function salute() {
         $date = new DateTime('now', new DateTimeZone(core_date::normalise_timezone(99)));
-        $tmz =  $date->getOffset() - dst_offset_on(time(), 99);
+        $tmz = $date->getOffset() - dst_offset_on(time(), 99);
         if ($tmz == 99) {
             $ut = (date('G') * 3600 + date('i') * 60 + date('s')) / 3600;
         } else {
@@ -104,7 +127,7 @@ class block_userinfo extends block_base {
         if ($ut < 12) {
             return get_string('morning', 'block_userinfo');
         }
-        if (($ut >=12) and ($ut < 19)) {
+        if (($ut >= 12) and ($ut < 19)) {
             return get_string('afternoon', 'block_userinfo');
         }
         return get_string('night', 'block_userinfo');
