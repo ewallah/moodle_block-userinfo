@@ -1,5 +1,4 @@
-<?php //$Id: block_userinfo.php,v 0.5 2011-04-22 22:00:00 fbotti Exp $
-
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -44,34 +43,44 @@ class block_userinfo extends block_base {
         if ($USER->id == 1) {
             return $this->content;
         }
+        $s = '';
         if (isloggedin()) {
             $this->title = $this->salute();
-            $this->content->text.= '<div class="userinfoblock">';
-            $this->content->text.= '<br /><span></span>';
-            $this->content->text.= $OUTPUT->user_picture($USER, array('size' => 100, 'class' => 'userinfoblockimg'));
-            $this->content->text.= "<br/><a href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\">".fullname($USER,true)."</a>&nbsp;"
-                    ."(<a href=\"$CFG->wwwroot/login/logout.php?sesskey=".sesskey()."\">".get_string('logout').'</a>)';
-            $this->content->text.= '</div>';
-            $this->content->text.= '<br />';
-            if ($USER->firstname !='guest') {
-                $this->content->text.= '<a href="'.$CFG->wwwroot.'/user/edit.php?id='.$USER->id.'">'
-                    .'<img src="'.$OUTPUT->image_url('i/edit').'" />&nbsp;'.get_string('editmyprofile','block_userinfo').'</a><br />';
-                $this->content->text.= '<a href="'.$CFG->wwwroot.'/message/index.php">'
-                    .'<img src="'.$OUTPUT->image_url('t/email').'" />&nbsp;'.get_string('messages','block_userinfo')
-                    .'&nbsp;('.message_count_unread_messages($USER).')</a><br />';
-                $this->content->text.= '<a href="'.$CFG->wwwroot.'/my/">'
-                    .'<img src="'.$OUTPUT->image_url('i/course').'" />&nbsp;'.get_string('mycourses','block_userinfo').'</a><br />';
+            $s = '<br /><span></span>';
+            $s .= $OUTPUT->user_picture($USER, ['size' => 100, 'class' => 'userinfoblockimg']);
+            $s .= '<br/>';
+            $s .= html_writer::link(new moodle_url('/user/profile.php', ['id' => $USER->id]), fullname($USER, true));
+            $s .= '&nbsp;(';
+            $s .= html_writer::link(new moodle_url('/login/logout.php', ['sesskey' => sesskey()]), get_string('logout'));
+            $s .= ')';
+            $s = html_writer::div($s, 'userinfoblock');
+            $s .= '<br />';
+            if ($USER->firstname != 'guest') {
+                $txt = get_string('editmyprofile', 'block_userinfo');
+                $img = $OUTPUT->pix_icon('i/edit', $txt);
+                $s .= html_writer::link(new moodle_url('/user/edit.php', ['id' => $USER->id]), $img . '&nbsp;' . $txt);
+                $s .= '<br />';
+                $txt = get_string('messages', 'block_userinfo');
+                $img = $OUTPUT->pix_icon('t/email', $txt);
+                $txt .= '&nbsp;(' . message_count_unread_messages($USER) . ')';
+                $s .= html_writer::link(new moodle_url('/message/index.php'), $img . '&nbsp;' . $txt);
+                $s .= '<br />';
+                $txt = get_string('mycourses', 'block_userinfo');
+                $img = $OUTPUT->pix_icon('i/course', $txt);
+                $s .= html_writer::link(new moodle_url('/my/'), $img . '&nbsp;' . $txt);
+                $s .= '<br />';
                 if ($USER->picture == 0) {
                     if (!$DB->get_field('user', 'description', array('id' => $USER->id))) {
-                        $this->content->text.= '<img src="'.$OUTPUT->image_url('i/risk_xss').'" />&nbsp;' . get_string('incomplete', 'block_userinfo') . '<br />';
+                        $txt = get_string('incomplete', 'block_userinfo');
+                        $s .= $OUTPUT->pix_icon('i/risk_xss', $txt) . '&nbsp;' . $txt . '<br />';
                     }
                 }
             }
-            $this->content->text.= '<span class="lastaccess">'.get_string('lastaccess').': '
-                    .userdate($USER->lastlogin,get_string('strftimedatetime', 'core_langconfig')).'</span>';
+            $txt = get_string('lastaccess') . ': ' . userdate($USER->lastlogin, get_string('strftimedatetime', 'core_langconfig'));
+            $s .= html_writer::span($txt, 'lastaccess');
         }
 
-        $this->content->footer = '';
+        $this->content->text = $s;
         return $this->content;
     }
     
@@ -79,21 +88,25 @@ class block_userinfo extends block_base {
         $date = new DateTime('now', new DateTimeZone(core_date::normalise_timezone(99)));
         $tmz =  $date->getOffset() - dst_offset_on(time(), 99);
         if ($tmz == 99) {
-            $ut = (date('G')*3600 + date('i')*60 + date('s'))/3600;
+            $ut = (date('G') * 3600 + date('i') * 60 + date('s')) / 3600;
         } else {
             $tz = core_date::get_user_timezone(99);
             $date = new DateTime('now', new DateTimeZone($tz));
             $loc = ($date->getOffset() - dst_offset_on(time(), $tz)) / (3600.0);
             $ut = ((gmdate('G') + $loc) * 3600 + gmdate('i') * 60 + gmdate('s')) / 3600; 
-            if ($ut <= 0) { $ut = 24 + $ut; }
-            if ($ut > 24) { $ut = $ut - 24; }
+            if ($ut <= 0) {
+                $ut = 24 + $ut;
+            }
+            if ($ut > 24) {
+                $ut = $ut - 24;
+            }
         }
         if ($ut < 12) {
             return get_string('morning', 'block_userinfo');
-        } elseif (($ut >=12 ) and ($ut < 19 )) {
-            return get_string('afternoon', 'block_userinfo');
-        } else {
-            return get_string('night', 'block_userinfo');
         }
+        if (($ut >=12) and ($ut < 19)) {
+            return get_string('afternoon', 'block_userinfo');
+        }
+        return get_string('night', 'block_userinfo');
     }
 }

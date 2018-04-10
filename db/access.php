@@ -15,37 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Online users block caps.
+ * Block users info caps.
  *
- * @package    block_online_users
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @package    block_userinfo
+ * @copyright  2011 Federico J. Botti - Entornos Educativos
+ * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-
-    'block/userinfo:myaddinstance' => array(
+$capabilities = [
+    'block/userinfo:myaddinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'user' => CAP_ALLOW
-        ),
-
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
-
-    'block/userinfo:addinstance' => array(
+        'archetypes' => ['user' => CAP_ALLOW],
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'],
+    'block/userinfo:addinstance' => [
         'riskbitmask' => RISK_SPAM | RISK_XSS,
-
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    )
-);
+        'archetypes' => ['editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW],
+        'clonepermissionsfrom' => 'moodle/site:manageblocks']];

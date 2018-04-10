@@ -15,22 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Language strings for block userinfo
  *
- * @package   block_userinfo
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_userinfo
+ * @copyright  2011 Federico J. Botti - Entornos Educativos
+ * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['afternoon'] = 'Good afternoon'; 
-$string['editmyprofile'] = 'Edit my profile';
-$string['incomplete'] = 'Your user account is incomplete.';
-$string['messages'] = 'Messages';
-$string['morning'] = 'Good morning'; 
-$string['myblog'] = 'My blog';
-$string['mycourses'] = 'My courses';
-$string['night'] = 'Good night'; 
-$string['pluginname'] = 'User Information block'; 
-$string['strftimedate'] = 'l jS \of F Y h:i:s A';
+$string['userinfo:myaddinstance'] = 'Add user info to my';
+$string['userinfo:addinstance'] = 'Add user info';
+$string['pluginname'] = 'User Information block';
 $string['userinfo'] = 'User Information';
-$string['userinfo:addinstance'] = 'Add a new user information block';
-$string['userinfo:myaddinstance'] = 'Add a new user information block to my home';
+$string['strftimedate'] = 'l jS \of F Y h:i:s A';
+$string['mycourses'] = 'My courses';
+$string['editmyprofile'] = 'Edit my profile';
+$string['messages'] = 'Messages';
+$string['morning'] = 'Good morning';
+$string['afternoon'] = 'Good afternoon';
+$string['night'] = 'Good night';
