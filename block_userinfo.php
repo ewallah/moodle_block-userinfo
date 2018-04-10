@@ -101,7 +101,7 @@ class block_userinfo extends block_base {
         $this->content->text = $s;
         return $this->content;
     }
-    
+
     /**
      * Return the salute.
      *
@@ -116,7 +116,7 @@ class block_userinfo extends block_base {
             $tz = core_date::get_user_timezone(99);
             $date = new DateTime('now', new DateTimeZone($tz));
             $loc = ($date->getOffset() - dst_offset_on(time(), $tz)) / (3600.0);
-            $ut = ((gmdate('G') + $loc) * 3600 + gmdate('i') * 60 + gmdate('s')) / 3600; 
+            $ut = ((gmdate('G') + $loc) * 3600 + gmdate('i') * 60 + gmdate('s')) / 3600;
             if ($ut <= 0) {
                 $ut = 24 + $ut;
             }
