@@ -90,7 +90,7 @@ class block_userinfo extends block_base {
                 $s .= '<br />';
                 if ($USER->picture == 0) {
                     if (!$DB->get_field('user', 'description', array('id' => $USER->id))) {
-                        $txt = get_string('incomplete', 'block_userinfo');
+                        $txt = get_string('incomplete', 'mod_scorm');
                         $s .= $OUTPUT->pix_icon('i/risk_xss', $txt) . '&nbsp;' . $txt . '<br />';
                     }
                 }

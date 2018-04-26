@@ -34,3 +34,4 @@ $string['messages'] = 'Messages';
 $string['morning'] = 'Good morning';
 $string['afternoon'] = 'Good afternoon';
 $string['night'] = 'Good night';
+$string['incomplete'] = 'Not complete';
