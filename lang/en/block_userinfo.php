@@ -35,3 +35,4 @@ $string['morning'] = 'Good morning';
 $string['afternoon'] = 'Good afternoon';
 $string['night'] = 'Good night';
 $string['incomplete'] = 'Not complete';
+$string['privacy:metadata'] = 'The Userinfo block only shows data about users and does not store any data itself.';
