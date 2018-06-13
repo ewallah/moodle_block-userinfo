@@ -30,5 +30,5 @@ $string['mycourses'] = 'Mes cours';
 $string['editmyprofile'] = 'Modifier mon profil';
 $string['messages'] = 'Messages';
 $string['morning'] = 'Bonjour';
-$string['afternoon'] = 'Bon après-midi';
+$string['afternoon'] = 'Bon aprÃ¨s-midi';
 $string['night'] = 'Bonne nuit';
