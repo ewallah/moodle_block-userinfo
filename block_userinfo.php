@@ -81,7 +81,6 @@ class block_userinfo extends block_base {
                 $s .= '<br />';
                 $txt = get_string('messages', 'block_userinfo');
                 $img = $OUTPUT->pix_icon('t/email', $txt);
-                $txt .= '&nbsp;(' . message_count_unread_messages($USER) . ')';
                 $s .= html_writer::link(new moodle_url('/message/index.php'), $img . '&nbsp;' . $txt);
                 $s .= '<br />';
                 $txt = get_string('mycourses', 'block_userinfo');
