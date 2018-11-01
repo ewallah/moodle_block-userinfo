@@ -82,7 +82,7 @@ class block_userinfo_testcase extends advanced_testcase {
             $titles[] = $block->salute();
         }
         $titles = array_unique($titles);
-        $this->assertCount(3, $titles);        
+        $this->assertCount(3, $titles);
     }
 
     private static function create_block($ctx) {
