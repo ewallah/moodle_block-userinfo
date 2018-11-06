@@ -69,7 +69,7 @@ class block_userinfo_testcase extends advanced_testcase {
         $block = self::create_block($ctx);
         $this->assertEquals('', $block->get_content()->text);
 
-        $course = $dg->create_course(['lang' => 'FR']);
+        $course = $dg->create_course(['lang' => 'fr']);
         $ctx = context_course::instance($course->id);
         $user = $dg->create_user(['lang' => 'fr']);
         $this->setUser($user->id);
