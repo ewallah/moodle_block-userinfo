@@ -55,7 +55,7 @@ class block_userinfo_testcase extends advanced_testcase {
      * Test basic block.
      */
     public function test_block_basic() {
-        global $USER;
+        global $DB, $USER;
         $dg = $this->getDataGenerator();
         $course = $dg->create_course();
         $ctx = context_course::instance($course->id);
@@ -71,11 +71,13 @@ class block_userinfo_testcase extends advanced_testcase {
 
         $course = $dg->create_course(['lang' => 'fr']);
         $ctx = context_course::instance($course->id);
-        $user = $dg->create_user(['lang' => 'fr']);
+        $user = $dg->create_user();
+        // MDL-68333 hack when nl language is not installed.
+        $DB->set_field('user', 'lang', 'nl', ['id' => $user->id]);
+        $dg->enrol_user($USER->id, $course->id);
         $this->setUser($user->id);
         $block = self::create_block($ctx);
-        $dg->enrol_user($USER->id, $course->id);
-        // TODO: Why is the string not translated?
+        // The string is not translated because the language pack is not installed.
         $this->assertContains('Edit my profile', $block->get_content()->text);
         $this->assertNotEmpty($block->salute());
     }
