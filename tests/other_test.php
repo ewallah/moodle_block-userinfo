@@ -80,6 +80,11 @@ class block_userinfo_testcase extends advanced_testcase {
         $this->assertNotEmpty($block->salute());
     }
 
+    /**
+     * Test create block.
+     * @param stdClass $ctx Context
+     * @return stdClass block
+     */
     private static function create_block($ctx) {
         $page = new moodle_page();
         $page->set_context($ctx);
