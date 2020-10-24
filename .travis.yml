@@ -7,6 +7,8 @@ dist: bionic
 
 services:
   - mysql
+  - postgresql
+  - docker
 
 addons:
   postgresql: "9.6"
@@ -14,10 +16,10 @@ addons:
 cache:
   directories:
     - $HOME/.composer/cache
-    - $HOME/.npm
+    - $HOME/.nvm
 
 php:
- - 7.3
+ - 7.4
 
 env:
   - DB=pgsql MOODLE_BRANCH=master
@@ -25,25 +27,22 @@ env:
 
 jobs:
   include:
-    - php: 7.1
-      env: DB=pgsql MOODLE_BRANCH=MOODLE_35_STABLE
-    - env: DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
-    - env: DB=pgsql MOODLE_BRANCH=MOODLE_38_STABLE
-    - php: 7.4
-      env: DB=pgsql MOODLE_BRANCH=master
+    - php: 7.3
+      env: DB=mysqli MOODLE_BRANCH=MOODLE_38_STABLE
+    - env: DB=mysqli MOODLE_BRANCH=MOODLE_39_STABLE
+    - env: DB=mysqli MOODLE_BRANCH=MOODLE_310_STABLE
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - nvm install 14.2.0
   - cd ../..
-  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
   - moodle-plugin-ci install
+  - cd moodle
 
 script:
-  - moodle-plugin-ci phpunit --coverage-text
   - moodle-plugin-ci phplint
   - moodle-plugin-ci phpcpd
   - moodle-plugin-ci phpmd
@@ -51,8 +50,16 @@ script:
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
-  - moodle-plugin-ci mustache
+  - moodle-plugin-ci mustache 
   - moodle-plugin-ci grunt
+  - moodle-plugin-ci phpunit --coverage-text --coverage-clover
+  - moodle-plugin-ci behat
+  - moodle-plugin-ci behat --profile chrome
+  - php admin/tool/behat/cli/init.php -a="classic"
+  - moodle-plugin-ci behat --suite="classic"
+  - moodle-plugin-ci behat --suite="classic" --profile chrome
+  - moodle-plugin-ci behat --suite="classic" --profile chrome blocks/admin_bookmarks
+  - vendor/bin/phpunit --testsuite core_privacy_testsuite,tool_dataprivacy_testsuite > /dev/null
 
 after_success:
   - moodle-plugin-ci coveralls-upload
