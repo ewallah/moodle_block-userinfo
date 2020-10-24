@@ -38,7 +38,7 @@ class block_userinfo_testcase extends advanced_testcase {
     /**
      * Basic setup for these tests.
      */
-    public function setUp() {
+    public function setUp():void {
         $this->resetAfterTest(true);
         $this->setAdminUser();
     }
@@ -62,8 +62,8 @@ class block_userinfo_testcase extends advanced_testcase {
         $block = self::create_block($ctx);
         $this->assertFalse($block->instance_allow_multiple());
         $this->assertNotEmpty($block->applicable_formats());
-        $this->assertContains('Edit my profile', $block->get_content()->text);
-        $this->assertContains('Last access:', $block->get_content()->text);
+        $this->assertStringContainsString('Edit my profile', $block->get_content()->text);
+        $this->assertStringContainsString('Last access:', $block->get_content()->text);
 
         $this->setGuestUser();
         $block = self::create_block($ctx);
@@ -78,7 +78,7 @@ class block_userinfo_testcase extends advanced_testcase {
         $this->setUser($user->id);
         $block = self::create_block($ctx);
         // The string is not translated because the language pack is not installed.
-        $this->assertContains('Edit my profile', $block->get_content()->text);
+        $this->assertStringContainsString('Edit my profile', $block->get_content()->text);
         $this->assertNotEmpty($block->salute());
     }
 
