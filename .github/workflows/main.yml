@@ -22,11 +22,7 @@ jobs:
         env:
           POSTGRES_USER: moodleuser
           POSTGRES_PASSWORD: moodle
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        options: --health-cmd="pg_isready" --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           - 5432:5432
 
@@ -34,18 +30,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: '7.4'
-            moodle-branch: 'master'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_311_STABLE'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_310_STABLE'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_39_STABLE'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_38_STABLE'            
+          - moodle-branch: ['master', 'MOODLE_311_STABLE', 'MOODLE_310_STABLE', 'MOODLE_39_STABLE']
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, pgsql, mysqli
+
       - name: Checkout plugin
         uses: actions/checkout@v2
         with:
@@ -58,16 +51,12 @@ jobs:
           path: ci
 
       - name: Composer install
-        run: cd ci; composer install
-
-      - name: Set path 1
-        run: echo "$(cd ci/bin; pwd)" >> $GITHUB_PATH
-
-      - name: Set path 2
-        run: echo "$(cd ci/vendor/bin; pwd)" >> $GITHUB_PATH
-
-      - name: Set AU
-        run: sudo locale-gen en_AU.UTF-8
+        run: |
+           cd ci
+           composer install
+           echo "$(cd bin; pwd)" >> $GITHUB_PATH
+           echo "$(cd vendor/bin; pwd)" >> $GITHUB_PATH
+           sudo locale-gen en_AU.UTF-8
 
       - name: Install Moodle
         run: moodle-plugin-ci install --branch ${{ matrix.moodle-branch }} --db-user moodleuser --db-pass moodle --plugin this-plugin
