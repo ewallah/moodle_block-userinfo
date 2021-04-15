@@ -1,42 +1,20 @@
 name: Tests
 
-on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+on: [push, pull_request]
 
 jobs:
   ci:
     name: ci
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: 'postgres'
-          POSTGRES_HOST_AUTH_METHOD: 'trust'
-        options: --health-cmd="pg_isready" --health-interval 10s --health-timeout 5s --health-retries 5
-        ports:
-          - 5432:5432
-      mariadb:
-        image: mariadb
-        env:
-          MYSQL_USER: 'root'
-          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-        options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 3
-        ports:
-          - 3306:3306
-
     strategy:
       fail-fast: false
       matrix:
-        moodle-branch: ['master', 'MOODLE_310_STABLE', 'MOODLE_39_STABLE', 'MOODLE_38_STABLE']
-        php: ['7.4', '7.3']
-        database: ['mariadb', 'pgsql']
+        moodle-branch: ['master', 'MOODLE_311_STABLE', 'MOODLE_310_STABLE']
+        php: ['7.4']
+        database: ['mysqli']
+
+    name: ${{ matrix.moodle-branch }}  php ${{ matrix.php }}  ${{ matrix.database }}
 
     steps:
       - name: checkout plugin
@@ -44,18 +22,11 @@ jobs:
         with:
           path: this-plugin
 
-      - name: Install node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.15.0'
-
       - name: setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, pgsql, mysqli
-          tools: composer, behat, phpunit, phpmd, phpcbf, phpcpd, psalm, phpcs
-          coverage: xdebug
+          extensions: mbstring, mysqli, gd, zip
 
       - name: checkout moodle-plugin-ci
         uses: actions/checkout@v2
@@ -63,65 +34,50 @@ jobs:
           repository: moodlehq/moodle-plugin-ci
           path: ci
 
-      - name: other
+      - name: composer
         run: |
-           cd ci
            composer install
            echo "$(cd bin; pwd)" >> $GITHUB_PATH
            echo "$(cd vendor/bin; pwd)" >> $GITHUB_PATH
            sudo locale-gen en_AU.UTF-8
+           sudo systemctl start mysql.service
+        working-directory: ci
 
       - name: install Moodle
-        run: moodle-plugin-ci install --db-host=127.0.0.1 --plugin this-plugin
+        run: moodle-plugin-ci install -v --db-user=root --db-pass=root --db-host=127.0.0.1 --plugin this-plugin
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
 
       - name: phplint
-        run: moodle-plugin-ci phplint
+        run: moodle-plugin-ci --ansi phplint
 
       - name: phpcpd
-        run: moodle-plugin-ci phpcpd
+        run: moodle-plugin-ci --ansi phpcpd
 
       - name: phpmd
-        run: moodle-plugin-ci phpmd
+        run: moodle-plugin-ci --ansi phpmd
+
+      - name: phpdoc
+        run: moodle-plugin-ci --ansi phpdoc
 
       - name: codechecker
-        run: moodle-plugin-ci codechecker
+        run: moodle-plugin-ci --ansi codechecker
 
       - name: validate
-        run: moodle-plugin-ci validate
+        run: moodle-plugin-ci --ansi validate
 
       - name: savepoints
-        run: moodle-plugin-ci savepoints
+        run: moodle-plugin-ci --ansi savepoints
 
       - name: mustache
-        run: moodle-plugin-ci mustache
+        run: moodle-plugin-ci --ansi mustache
 
       - name: grunt
-        run: moodle-plugin-ci grunt
+        run: moodle-plugin-ci --ansi grunt
 
-      - name: phpunit 
-        run: moodle-plugin-ci phpunit --coverage-text --coverage-clover
+      - name: phpunit
+        run: moodle-plugin-ci --ansi phpunit --coverage-text
 
       - name: firefox
-        run: moodle-plugin-ci behat
-      
-      - name: chrome
-        run: moodle-plugin-ci behat --profile chrome
-
-      - name: init classic
-        run: php moodle/admin/tool/behat/cli/init.php -a="classic"
-
-      - name: firefox classic
-        run: moodle-plugin-ci behat --suite="classic"
-      
-      - name: chrome classic
-        run: moodle-plugin-ci behat  --suite="classic" --profile chrome
-
-      - name: coveralls
-        env:
-          COVERALLS_RUN_LOCALLY: true
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: moodle-plugin-ci coveralls-upload
-        if: matrix.moodle-branch == 'master'
+        run: moodle-plugin-ci --ansi behat
