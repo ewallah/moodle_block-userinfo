@@ -78,6 +78,3 @@ jobs:
 
       - name: phpunit
         run: moodle-plugin-ci --ansi phpunit --coverage-text
-
-      - name: firefox
-        run: moodle-plugin-ci --ansi behat

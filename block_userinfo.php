@@ -114,7 +114,7 @@ class block_userinfo extends block_base {
         } else {
             $tz = core_date::get_user_timezone(99);
             $date = new DateTime('now', new DateTimeZone($tz));
-            $loc = ($date->getOffset() - dst_offset_on(time(), $tz)) / (3600.0);
+            $loc = ($date->getOffset() - dst_offset_on(time(), $tz)) / 3600;
             $ut = ((gmdate('G') + $loc) * 3600 + gmdate('i') * 60 + gmdate('s')) / 3600;
             if ($ut <= 0) {
                 $ut = 24 + $ut;
