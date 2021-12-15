@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        moodle-branch: ['master', 'MOODLE_311_STABLE', 'MOODLE_310_STABLE']
+        moodle-branch: ['MOODLE_311_STABLE']
         php: ['7.4']
         database: ['mysqli']
         include:
@@ -31,7 +31,8 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pgsql, mysqli, gd, xmlrpc,zip
           ini-values: max_input_vars=5000
- 
+          coverage: xdebug
+
       - name: composer
         run: |
            composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
@@ -41,37 +42,52 @@ jobs:
            sudo systemctl start mysql.service
 
       - name: install Moodle
-        run: moodle-plugin-ci install -v --db-user=root --db-pass=root --db-host=127.0.0.1 --plugin this-plugin
+        run: moodle-plugin-ci install -v  --db-user=root --db-pass=root --db-host=127.0.0.1 --plugin this-plugin
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
 
       - name: phplint
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi phplint
 
       - name: phpcpd
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi phpcpd
 
       - name: phpmd
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi phpmd
 
       - name: phpdoc
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi phpdoc
 
       - name: codechecker
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi codechecker
 
       - name: validate
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi validate
 
       - name: savepoints
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi savepoints
 
-      - name: mustache
-        run: moodle-plugin-ci --ansi mustache
-
       - name: grunt
+        if: ${{ always() }}
         run: moodle-plugin-ci --ansi grunt
 
+      - name: mustache
+        if: ${{ always() }}
+        run: moodle-plugin-ci --ansi mustache
+
       - name: phpunit
-        run: moodle-plugin-ci --ansi phpunit --coverage-text || true
+        continue-on-error: true
+        if: ${{ always() }}
+        run: moodle-plugin-ci --ansi phpunit --coverage-text
+
+      - name: behat
+        if: ${{ always() }}
+        run: moodle-plugin-ci --ansi behat --profile=chrome

@@ -22,8 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace block_userinfo;
 
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Unit tests for block_userinfo/classes/privacy/policy
@@ -33,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_userinfo_testcase extends advanced_testcase {
+class other_test extends \advanced_testcase {
 
     /**
      * Basic setup for these tests.
@@ -47,7 +48,7 @@ class block_userinfo_testcase extends advanced_testcase {
      * Test privacy.
      */
     public function test_privacy() {
-        $privacy = new block_userinfo\privacy\provider();
+        $privacy = new privacy\provider();
         $this->assertEquals('privacy:metadata', $privacy->get_reason());
     }
 
@@ -58,7 +59,7 @@ class block_userinfo_testcase extends advanced_testcase {
         global $DB, $USER;
         $dg = $this->getDataGenerator();
         $course = $dg->create_course();
-        $ctx = context_course::instance($course->id);
+        $ctx = \context_course::instance($course->id);
         $block = self::create_block($ctx);
         $this->assertFalse($block->instance_allow_multiple());
         $this->assertNotEmpty($block->applicable_formats());
@@ -70,7 +71,7 @@ class block_userinfo_testcase extends advanced_testcase {
         $this->assertEquals('', $block->get_content()->text);
 
         $course = $dg->create_course(['lang' => 'fr']);
-        $ctx = context_course::instance($course->id);
+        $ctx = \context_course::instance($course->id);
         $user = $dg->create_user();
         // MDL-68333 hack when nl language is not installed.
         $DB->set_field('user', 'lang', 'nl', ['id' => $user->id]);
@@ -88,12 +89,12 @@ class block_userinfo_testcase extends advanced_testcase {
      * @return stdClass block
      */
     private static function create_block($ctx) {
-        $page = new moodle_page();
+        $page = new \moodle_page();
         $page->set_context($ctx);
         $page->set_pagetype('region-a');
         $page->set_subpage('');
-        $page->set_url(new moodle_url('/'));
-        $blockmanager = new block_manager($page);
+        $page->set_url(new \moodle_url('/'));
+        $blockmanager = new \block_manager($page);
         $blockmanager->add_regions(['region-a'], false);
         $blockmanager->set_default_region('region-a');
         $blockmanager->add_block('userinfo', 'region-a', -10, false);
