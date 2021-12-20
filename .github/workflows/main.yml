@@ -31,7 +31,6 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pgsql, mysqli, gd, xmlrpc,zip
           ini-values: max_input_vars=5000
-          tools: composer, pecl, phpcbf, phpcpd, php-config, php-cs-fixer, phpcs, phpize, phpmd, phpunit, symfony
           coverage: none
 
       - name: composer
@@ -85,9 +84,12 @@ jobs:
         run: moodle-plugin-ci --ansi mustache
 
       - name: phpunit
-        continue-on-error: true
-        if: ${{ always() }}
+        if: ${{ matrix.php == '7.4' }}
         run: moodle-plugin-ci --ansi phpunit --coverage-text
+
+      - name: phpunit
+        if: ${{ matrix.php == '8.0' }}
+        run: moodle-plugin-ci --ansi phpunit
 
       - name: behat
         if: ${{ always() }}
