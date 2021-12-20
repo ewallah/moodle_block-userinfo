@@ -31,6 +31,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pgsql, mysqli, gd, xmlrpc,zip
           ini-values: max_input_vars=5000
+          tools: composer, composer-prefetcher, pecl, phpcbf, phpcpd, php-config, php-cs-fixer, phpcs, phpize, phpmd, phpunit, symfony
           coverage: xdebug2
 
       - name: composer
