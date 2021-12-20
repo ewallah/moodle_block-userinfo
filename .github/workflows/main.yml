@@ -31,7 +31,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pgsql, mysqli, gd, xmlrpc,zip
           ini-values: max_input_vars=5000
-          coverage: pcov
+          coverage: xdebug2
 
       - name: composer
         run: |
