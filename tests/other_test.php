@@ -24,7 +24,7 @@
 
 namespace block_userinfo;
 
-defined('MOODLE_INTERNAL') || die();
+use stdClass;
 
 /**
  * Unit tests for block_userinfo/classes/privacy/policy

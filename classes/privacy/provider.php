@@ -25,8 +25,6 @@
 
 namespace block_userinfo\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy main class.
  *
