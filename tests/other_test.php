@@ -18,7 +18,8 @@
  *
  * @package    block_userinfo
  * @category   test
- * @copyright  2018 Renaat Debleu <rdebleu@eWallah.net>
+ * @copyright  2011 Federico J. Botti - Entornos Educativos
+ * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,7 +32,8 @@ use stdClass;
  *
  * @package    block_userinfo
  * @category   test
- * @copyright  2018 Renaat Debleu <rdebleu@eWallah.net>
+ * @copyright  2011 Federico J. Botti - Entornos Educativos
+ * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class other_test extends \advanced_testcase {
