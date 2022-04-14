@@ -48,7 +48,7 @@ class other_test extends \advanced_testcase {
 
     /**
      * Test privacy.
-     * @covers \block_userinfo/classes/privacy/provider
+     * @covers \block_userinfo\privacy\provider
      */
     public function test_privacy() {
         $privacy = new privacy\provider();
