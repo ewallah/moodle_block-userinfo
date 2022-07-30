@@ -124,7 +124,7 @@ class block_userinfo extends block_base {
         if ($ut < 12) {
             return get_string('morning', 'block_userinfo');
         }
-        if (($ut >= 12) and ($ut < 19)) {
+        if (($ut >= 12) && ($ut < 19)) {
             return get_string('afternoon', 'block_userinfo');
         }
         return get_string('night', 'block_userinfo');
