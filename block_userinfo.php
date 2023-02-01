@@ -19,7 +19,7 @@
  *
  * @package    block_userinfo
  * @copyright  2011 Federico J. Botti - Entornos Educativos
- * @author     Renaat Debleu <rdebleu@eWallah.net>
+ * @author     Renaat Debleu <info@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    block_userinfo
  * @copyright  2011 Federico J. Botti - Entornos Educativos
- * @author     Renaat Debleu <rdebleu@eWallah.net>
+ * @author     Renaat Debleu <info@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_userinfo extends block_base {
