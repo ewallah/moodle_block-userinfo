@@ -19,7 +19,7 @@
  *
  * @package    block_userinfo
  * @copyright  2011 Federico J. Botti - Entornos Educativos
- * @author     2018 Renaat Debleu <rdebleu@eWallah.net>
+ * @author     Renaat Debleu <rdebleu@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
