@@ -86,7 +86,7 @@ class block_userinfo extends block_base {
                 $s .= html_writer::link(new moodle_url('/my/'), $img . '&nbsp;' . $txt);
                 $s .= '<br />';
                 if ($USER->picture == 0) {
-                    if (!$DB->get_field('user', 'description', array('id' => $USER->id))) {
+                    if (!$DB->get_field('user', 'description', ['id' => $USER->id])) {
                         $txt = get_string('incomplete', 'mod_scorm');
                         $s .= $OUTPUT->pix_icon('i/risk_xss', $txt) . '&nbsp;' . $txt . '<br />';
                     }
