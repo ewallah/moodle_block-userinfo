@@ -50,7 +50,7 @@ class other_test extends \advanced_testcase {
      * Test privacy.
      * @covers \block_userinfo\privacy\provider
      */
-    public function test_privacy() {
+    public function test_privacy(): void {
         $privacy = new privacy\provider();
         $this->assertEquals('privacy:metadata', $privacy->get_reason());
     }
@@ -59,7 +59,7 @@ class other_test extends \advanced_testcase {
      * Test basic block.
      * @covers \block_userinfo
      */
-    public function test_block_basic() {
+    public function test_block_basic(): void {
         global $DB, $USER;
         $dg = $this->getDataGenerator();
         $course = $dg->create_course();
