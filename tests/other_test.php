@@ -37,7 +37,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class other_test extends \advanced_testcase {
-
     /**
      * Basic setup for these tests.
      */
