@@ -23,12 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = '用户信息版块';
-$string['userinfo'] = '用户信息';
-$string['strftimedate'] = 'Y年m月d日 h:i:s';
-$string['mycourses'] = '我的课程';
+$string['afternoon'] = '下午好';
 $string['editmyprofile'] = '编辑我的资料';
 $string['messages'] = '消息';
 $string['morning'] = '早上好';
-$string['afternoon'] = '下午好';
+$string['mycourses'] = '我的课程';
 $string['night'] = '晚上好';
+$string['pluginname'] = '用户信息版块';
+$string['strftimedate'] = 'Y年m月d日 h:i:s';
+$string['userinfo'] = '用户信息';

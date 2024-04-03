@@ -23,13 +23,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Gebruikers Informatie block';
-$string['userinfo'] = 'Gebruikersinformatie';
-$string['strftimedate'] = 'j/m/y h:i:s';
-$string['mycourses'] = 'Mijn cursussen';
-$string['myblog'] = 'Mijn blog';
+$string['afternoon'] = 'Goede middag';
 $string['editmyprofile'] = 'Bewerk mijn profiel';
 $string['messages'] = 'Berichten';
 $string['morning'] = 'Goede morgen';
-$string['afternoon'] = 'Goede middag';
+$string['myblog'] = 'Mijn blog';
+$string['mycourses'] = 'Mijn cursussen';
 $string['night'] = 'Goede avond';
+$string['pluginname'] = 'Gebruikers Informatie block';
+$string['strftimedate'] = 'j/m/y h:i:s';
+$string['userinfo'] = 'Gebruikersinformatie';

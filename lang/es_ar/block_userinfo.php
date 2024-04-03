@@ -23,12 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Bloque de Informaci&oacute;n de usuario';
-$string['userinfo'] = 'Informaci&oacute;n de usuario';
-$string['strftimedate'] = 'l jS \of F Y h:i:s A';
-$string['mycourses'] = 'Mis cursos';
+$string['afternoon'] = 'Buenas tardes';
 $string['editmyprofile'] = 'Editar mi perfil';
 $string['messages'] = 'Mensajes';
 $string['morning'] = 'Buen d&iacute;a';
-$string['afternoon'] = 'Buenas tardes';
+$string['mycourses'] = 'Mis cursos';
 $string['night'] = 'Buenas noches';
+$string['pluginname'] = 'Bloque de Informaci&oacute;n de usuario';
+$string['strftimedate'] = 'l jS \of F Y h:i:s A';
+$string['userinfo'] = 'Informaci&oacute;n de usuario';

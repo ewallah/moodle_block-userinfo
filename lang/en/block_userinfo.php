@@ -23,16 +23,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['userinfo:myaddinstance'] = 'Add user info to my';
-$string['userinfo:addinstance'] = 'Add user info';
-$string['pluginname'] = 'User Information block';
-$string['userinfo'] = 'User Information';
-$string['strftimedate'] = 'l jS \of F Y h:i:s A';
-$string['mycourses'] = 'My courses';
+$string['afternoon'] = 'Good afternoon';
 $string['editmyprofile'] = 'Edit my profile';
+$string['incomplete'] = 'Not complete';
 $string['messages'] = 'Messages';
 $string['morning'] = 'Good morning';
-$string['afternoon'] = 'Good afternoon';
+$string['mycourses'] = 'My courses';
 $string['night'] = 'Good night';
-$string['incomplete'] = 'Not complete';
+$string['pluginname'] = 'User Information block';
 $string['privacy:metadata'] = 'The Userinfo block only shows data about users and does not store any data itself.';
+$string['strftimedate'] = 'l jS \of F Y h:i:s A';
+$string['userinfo'] = 'User Information';
+$string['userinfo:addinstance'] = 'Add user info';
+$string['userinfo:myaddinstance'] = 'Add user info to my';
