@@ -41,6 +41,7 @@ final class other_test extends \advanced_testcase {
      * Basic setup for these tests.
      */
     public function setUp(): void {
+        parent::setUp();
         $this->resetAfterTest(true);
         $this->setAdminUser();
     }
