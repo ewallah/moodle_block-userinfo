@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_userinfo';
-$plugin->version = 2023122000;
-$plugin->requires = 2023042400;
-$plugin->release = 'v4.4.1';
-$plugin->supported = [402, 404];
+$plugin->version = 2024102700;
+$plugin->requires = 2023100900;
+$plugin->release = 'v4.5.1';
+$plugin->supported = [404, 405];
 $plugin->maturity = MATURITY_STABLE;

@@ -9,11 +9,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        moodle-branch: ['MOODLE_402_STABLE', 'MOODLE_403_STABLE', 'MOODLE_404_STABLE']
-        php: ['8.1']
+        moodle-branch: ['MOODLE_404_STABLE', 'MOODLE_405_STABLE']
+        php: ['8.2']
         database: ['mysqli']
         include:
-          - php: '8.2'
+          - php: '8.3'
             moodle-branch: 'main'
             database: 'mysqli'
 
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: checkout plugin
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: this-plugin
 
