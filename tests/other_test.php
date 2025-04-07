@@ -49,7 +49,7 @@ final class other_test extends \advanced_testcase {
 
     /**
      * Test privacy.
-     * #[CoversClass(block_userinfo\privacy\provider)]
+     * @covers \block_userinfo\privacy\provider
      */
     public function test_privacy(): void {
         $privacy = new privacy\provider();
@@ -58,7 +58,7 @@ final class other_test extends \advanced_testcase {
 
     /**
      * Test basic block.
-     * #[CoversClass(block_userinfo)]
+     * @covers \block_userinfo
      */
     public function test_block_basic(): void {
         global $DB, $USER;
