@@ -27,6 +27,7 @@
 namespace block_userinfo;
 
 use stdClass;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Unit tests for block_userinfo/classes/privacy/policy
@@ -37,6 +38,8 @@ use stdClass;
  * @author     Renaat Debleu <info@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+#[CoversClass(block_userinfo::class)]
+#[CoversClass(block_userinfo\privacy\provider::class)]
 final class other_test extends \advanced_testcase {
     /**
      * Basic setup for these tests.
@@ -49,7 +52,6 @@ final class other_test extends \advanced_testcase {
 
     /**
      * Test privacy.
-     * @covers \block_userinfo\privacy\provider
      */
     public function test_privacy(): void {
         $privacy = new privacy\provider();
@@ -58,7 +60,6 @@ final class other_test extends \advanced_testcase {
 
     /**
      * Test basic block.
-     * @covers \block_userinfo
      */
     public function test_block_basic(): void {
         global $DB, $USER;
