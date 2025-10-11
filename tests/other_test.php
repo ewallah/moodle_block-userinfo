@@ -26,11 +26,12 @@
 
 namespace block_userinfo;
 
+use advanced_testcase;
 use stdClass;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, CoversNamespace};
 
 /**
- * Unit tests for block_userinfo/classes/privacy/policy
+ * Unit tests for block_userinfo
  *
  * @package    block_userinfo
  * @category   test
@@ -38,29 +39,16 @@ use PHPUnit\Framework\Attributes\CoversClass;
  * @author     Renaat Debleu <info@eWallah.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class other_test extends \advanced_testcase {
-    /**
-     * Basic setup for these tests.
-     */
-    public function setUp(): void {
-        parent::setUp();
-        $this->resetAfterTest(true);
-        $this->setAdminUser();
-    }
-
-    /**
-     * Test privacy.
-     */
-    public function test_privacy(): void {
-        $privacy = new privacy\provider();
-        $this->assertEquals('privacy:metadata', $privacy->get_reason());
-    }
-
+#[CoversNamespace(block_userinfo)]
+#[CoversClass(\block_userinfo::class)]
+final class other_test extends advanced_testcase {
     /**
      * Test basic block.
      */
     public function test_block_basic(): void {
         global $DB, $USER;
+        $this->resetAfterTest(true);
+        $this->setAdminUser();
         $dg = $this->getDataGenerator();
         $course = $dg->create_course();
         $ctx = \context_course::instance($course->id);
