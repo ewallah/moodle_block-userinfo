@@ -1,5 +1,5 @@
 @block @block_userinfo
-Feature: Enable Block userinfo on the frontpage
+Feature: Enable Block userinfo on the home page
 
   Background:
     Given the following "users" exist:
@@ -12,9 +12,8 @@ Feature: Enable Block userinfo on the frontpage
     And I log out
 
   @javascript
-  Scenario: Go to frontpage.
+  Scenario: Go to homepage and check if user information block exist.
     Given I log in as "student1"
     And I am on site homepage
     Then I should see "Edit my profile"
     And I should see "Incomplete"
-
