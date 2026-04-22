@@ -61,7 +61,7 @@ class block_userinfo extends block_base {
         }
         $s = '';
         if (isloggedin()) {
-            $this->title = self::salute();
+            $this->title = $this::salute();
             $s = '<br /><span></span>';
             $s .= $OUTPUT->user_picture($USER, ['size' => 100, 'class' => 'userinfoblockimg']);
             $s .= '<br/>';
@@ -103,7 +103,7 @@ class block_userinfo extends block_base {
      *
      * @return string
      */
-    public static function salute() {
+    public function salute() {
         $date = new DateTime('now', new DateTimeZone(core_date::normalise_timezone(99)));
         $tmz = $date->getOffset() - dst_offset_on(time(), 99);
         if ($tmz == 99) {
